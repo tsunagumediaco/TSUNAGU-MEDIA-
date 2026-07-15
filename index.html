@@ -219,6 +219,74 @@
   .service-card h3{font-size:1.4rem;margin-bottom:14px;font-weight:700;}
   .service-card p{color:var(--gray);font-size:0.95rem;line-height:1.7;}
 
+  /* PORTFOLIO */
+  .portfolio-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px;
+  }
+  .portfolio-card{
+    aspect-ratio:9/13;
+    background:linear-gradient(145deg,var(--black2),#1c1c1c);
+    border:1px solid rgba(245,242,238,0.08);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:24px;
+    position:relative;overflow:hidden;
+    transition:transform .35s ease, border-color .35s ease;
+  }
+  .portfolio-card:hover{transform:translateY(-6px);border-color:var(--red);}
+  .portfolio-card::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(circle at 50% 30%, rgba(200,16,46,0.12), transparent 60%);
+  }
+  .portfolio-play{
+    width:56px;height:56px;border-radius:50%;
+    border:1.5px solid var(--red);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--red);font-size:1.3rem;margin-bottom:18px;
+    position:relative;z-index:1;
+  }
+  .portfolio-card h4{font-size:1rem;letter-spacing:1px;color:var(--white);position:relative;z-index:1;}
+  .portfolio-card p{font-size:0.78rem;color:var(--gray);margin-top:8px;position:relative;z-index:1;text-transform:uppercase;letter-spacing:1px;}
+  .portfolio-note{
+    margin-top:36px;color:var(--gray);font-size:0.9rem;text-align:center;
+  }
+
+  /* PRICING */
+  .pricing{background:var(--black2);border-top:1px solid rgba(200,16,46,0.15);border-bottom:1px solid rgba(200,16,46,0.15);}
+  .pricing-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px;
+  }
+  .price-card{
+    background:var(--black);
+    border:1px solid rgba(245,242,238,0.1);
+    padding:44px 34px;
+    display:flex;flex-direction:column;
+    transition:border-color .3s ease, transform .3s ease;
+  }
+  .price-card:hover{transform:translateY(-6px);border-color:var(--red);}
+  .price-card.featured{
+    border-color:var(--red);
+    background:linear-gradient(180deg, rgba(200,16,46,0.08), var(--black) 40%);
+    position:relative;
+  }
+  .price-tag{
+    position:absolute;top:-1px;right:-1px;
+    background:var(--red);color:#fff;
+    font-size:0.7rem;letter-spacing:1.5px;text-transform:uppercase;
+    padding:6px 14px;
+  }
+  .price-name{font-size:1.3rem;font-weight:700;margin-bottom:6px;}
+  .price-desc{color:var(--gray);font-size:0.88rem;margin-bottom:24px;}
+  .price-amount{font-size:2.4rem;font-weight:800;margin-bottom:4px;}
+  .price-amount span{font-size:0.9rem;color:var(--gray);font-weight:400;}
+  .price-features{list-style:none;margin:24px 0 32px;flex-grow:1;}
+  .price-features li{
+    color:var(--gray);font-size:0.9rem;padding:10px 0;
+    border-bottom:1px solid rgba(245,242,238,0.07);
+    display:flex;align-items:center;gap:10px;
+  }
+  .price-features li::before{content:'—';color:var(--red);}
+  .price-card .btn{text-align:center;width:100%;}
+
   /* NICHES */
   .niches{background:var(--black2);border-top:1px solid rgba(200,16,46,0.15);border-bottom:1px solid rgba(200,16,46,0.15);}
   .niche-list{margin-top:50px;display:flex;flex-direction:column;}
@@ -318,6 +386,8 @@
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#pricing">Pricing</a></li>
     <li><a href="#niches">Industries</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -375,6 +445,64 @@
       <p>Campaign-ready edits that convert viewers into customers without losing authenticity.</p>
     </div>
   </div>
+</section>
+
+<section class="portfolio" id="portfolio">
+  <div class="section-kicker">Our Work</div>
+  <h2 class="section-title">Portfolio</h2>
+  <p class="section-sub">A look at the storytelling-first edits we create for our clients.</p>
+  <div class="portfolio-grid">
+    <div class="portfolio-card"><div class="portfolio-play">▶</div><h4>Project Coming Soon</h4><p>Gym / Fitness</p></div>
+    <div class="portfolio-card"><div class="portfolio-play">▶</div><h4>Project Coming Soon</h4><p>Cafe / Lifestyle</p></div>
+    <div class="portfolio-card"><div class="portfolio-play">▶</div><h4>Project Coming Soon</h4><p>Brand Story</p></div>
+  </div>
+  <p class="portfolio-note">Sample edits will be added here soon — reach out for our latest reel.</p>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="section-kicker">Packages</div>
+  <h2 class="section-title">Pricing</h2>
+  <p class="section-sub">Simple packages built around your content needs — fully customizable per project.</p>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-name">Starter</div>
+      <div class="price-desc">For brands just getting started with content.</div>
+      <div class="price-amount">$XX<span>/mo</span></div>
+      <ul class="price-features">
+        <li>4 short-form edits / month</li>
+        <li>Basic color grading</li>
+        <li>Storytelling-first pacing</li>
+        <li>1 revision round</li>
+      </ul>
+      <a href="#contact" class="btn btn-outline">Get Started</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-tag">Most Popular</div>
+      <div class="price-name">Pro</div>
+      <div class="price-desc">For brands posting consistently.</div>
+      <div class="price-amount">$XX<span>/mo</span></div>
+      <ul class="price-features">
+        <li>8-10 short-form edits / month</li>
+        <li>Advanced color grading & sound design</li>
+        <li>Custom captions & motion graphics</li>
+        <li>2 revision rounds</li>
+      </ul>
+      <a href="#contact" class="btn btn-primary">Get Started</a>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Custom</div>
+      <div class="price-desc">For agencies, launches, and bigger campaigns.</div>
+      <div class="price-amount">Let's Talk</div>
+      <ul class="price-features">
+        <li>Custom video volume</li>
+        <li>Brand story / promo videos</li>
+        <li>Dedicated editor</li>
+        <li>Unlimited revisions</li>
+      </ul>
+      <a href="#contact" class="btn btn-outline">Contact Us</a>
+    </div>
+  </div>
+  <p class="portfolio-note">* Pricing shown is placeholder — final rates confirmed after a quick project chat.</p>
 </section>
 
 <section class="niches" id="niches">
