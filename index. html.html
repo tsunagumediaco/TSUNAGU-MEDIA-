@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tsunagu Media | We Connect Creativity</title>
+<meta name="description" content="Tsunagu Media — professional video editing agency specializing in storytelling-driven edits for gyms, cafes, and brands.">
+<style>
+  :root{
+    --black:#0a0a0a;
+    --black2:#141414;
+    --red:#c8102e;
+    --red2:#8f0c20;
+    --white:#f5f2ee;
+    --gray:#9a9a9a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--white);
+    font-family:'Helvetica Neue',Arial,sans-serif;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--red);color:#fff;}
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;width:100%;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:22px 6%;
+    z-index:1000;
+    background:rgba(10,10,10,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(200,16,46,0.2);
+    transition:padding .3s ease;
+  }
+  .logo{
+    font-size:1.4rem;
+    letter-spacing:3px;
+    font-weight:700;
+    color:var(--white);
+  }
+  .logo span{color:var(--red);}
+  .nav-links{display:flex;gap:36px;list-style:none;}
+  .nav-links a{
+    color:var(--white);
+    text-decoration:none;
+    font-size:0.85rem;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    position:relative;
+    padding-bottom:4px;
+    transition:color .3s;
+  }
+  .nav-links a::after{
+    content:'';position:absolute;left:0;bottom:0;
+    width:0;height:1px;background:var(--red);
+    transition:width .3s ease;
+  }
+  .nav-links a:hover{color:var(--red);}
+  .nav-links a:hover::after{width:100%;}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+  .burger div{width:26px;height:2px;background:var(--white);}
+
+  /* HERO */
+  .hero{
+    height:100vh;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;
+    position:relative;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(200,16,46,0.15), transparent 40%),
+      radial-gradient(circle at 70% 80%, rgba(200,16,46,0.12), transparent 45%),
+      var(--black);
+  }
+  .hero::before{
+    content:'繋';
+    position:absolute;
+    font-size:min(60vw,700px);
+    color:rgba(200,16,46,0.05);
+    font-weight:900;
+    z-index:0;
+    user-select:none;
+  }
+  .hero-content{position:relative;z-index:2;padding:0 20px;}
+  .hero-kicker{
+    color:var(--red);
+    letter-spacing:6px;
+    font-size:0.8rem;
+    text-transform:uppercase;
+    margin-bottom:18px;
+    opacity:0;
+    animation:fadeUp 1s ease forwards .2s;
+  }
+  .hero h1{
+    font-size:clamp(2.8rem,8vw,6rem);
+    font-weight:800;
+    letter-spacing:2px;
+    line-height:1;
+    opacity:0;
+    animation:fadeUp 1s ease forwards .4s;
+  }
+  .hero h1 span{color:var(--red);}
+  .hero p{
+    margin-top:24px;
+    font-size:1.1rem;
+    color:var(--gray);
+    max-width:520px;
+    margin-left:auto;margin-right:auto;
+    opacity:0;
+    animation:fadeUp 1s ease forwards .6s;
+  }
+  .hero-btns{
+    margin-top:40px;
+    display:flex;gap:20px;justify-content:center;flex-wrap:wrap;
+    opacity:0;
+    animation:fadeUp 1s ease forwards .8s;
+  }
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(30px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  .btn{
+    padding:16px 36px;
+    border-radius:2px;
+    text-decoration:none;
+    font-size:0.85rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    transition:all .35s ease;
+    display:inline-block;
+    border:1px solid transparent;
+  }
+  .btn-primary{
+    background:var(--red);
+    color:#fff;
+  }
+  .btn-primary:hover{
+    background:var(--red2);
+    box-shadow:0 0 30px rgba(200,16,46,0.5);
+    transform:translateY(-2px);
+  }
+  .btn-outline{
+    border:1px solid rgba(245,242,238,0.3);
+    color:var(--white);
+  }
+  .btn-outline:hover{
+    border-color:var(--red);
+    color:var(--red);
+  }
+  .scroll-cue{
+    position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+    width:22px;height:36px;border:1px solid rgba(245,242,238,0.4);
+    border-radius:12px;z-index:2;
+  }
+  .scroll-cue::before{
+    content:'';position:absolute;top:6px;left:50%;
+    width:4px;height:4px;background:var(--red);
+    border-radius:50%;transform:translateX(-50%);
+    animation:scrollDown 1.8s ease infinite;
+  }
+  @keyframes scrollDown{
+    0%{top:6px;opacity:1;}
+    80%{top:22px;opacity:0;}
+    100%{top:22px;opacity:0;}
+  }
+
+  section{padding:120px 8%;position:relative;}
+  .section-kicker{
+    color:var(--red);letter-spacing:4px;font-size:0.78rem;
+    text-transform:uppercase;margin-bottom:14px;
+  }
+  .section-title{
+    font-size:clamp(2rem,4.5vw,3.2rem);
+    font-weight:800;letter-spacing:1px;margin-bottom:24px;
+  }
+  .section-sub{
+    color:var(--gray);max-width:600px;font-size:1.05rem;line-height:1.7;
+  }
+
+  /* ABOUT */
+  .about{
+    background:var(--black2);
+    border-top:1px solid rgba(200,16,46,0.15);
+    border-bottom:1px solid rgba(200,16,46,0.15);
+  }
+  .about-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:70px;
+    margin-top:60px;align-items:start;
+  }
+  .about-text p{color:var(--gray);line-height:1.9;margin-bottom:20px;font-size:1.02rem;}
+  .about-text strong{color:var(--white);}
+  .stat-block{display:grid;grid-template-columns:1fr 1fr;gap:30px;}
+  .stat{
+    padding:28px 24px;
+    border:1px solid rgba(245,242,238,0.1);
+    border-left:2px solid var(--red);
+    background:rgba(255,255,255,0.02);
+  }
+  .stat h3{font-size:2.2rem;color:var(--red);margin-bottom:6px;}
+  .stat p{color:var(--gray);font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;}
+
+  /* SERVICES */
+  .services-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
+    margin-top:60px;
+    background:rgba(200,16,46,0.15);
+  }
+  .service-card{
+    background:var(--black);
+    padding:44px 32px;
+    transition:background .35s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .service-card:hover{background:var(--black2);}
+  .service-num{color:var(--red);font-size:0.85rem;letter-spacing:2px;margin-bottom:20px;display:block;}
+  .service-card h3{font-size:1.4rem;margin-bottom:14px;font-weight:700;}
+  .service-card p{color:var(--gray);font-size:0.95rem;line-height:1.7;}
+
+  /* NICHES */
+  .niches{background:var(--black2);border-top:1px solid rgba(200,16,46,0.15);border-bottom:1px solid rgba(200,16,46,0.15);}
+  .niche-list{margin-top:50px;display:flex;flex-direction:column;}
+  .niche-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:30px 0;border-bottom:1px solid rgba(245,242,238,0.1);
+    transition:padding-left .3s ease;
+    cursor:default;
+  }
+  .niche-row:hover{padding-left:16px;border-color:var(--red);}
+  .niche-row h3{font-size:1.6rem;font-weight:700;}
+  .niche-row span{color:var(--gray);font-size:0.9rem;letter-spacing:1px;}
+  .niche-row:hover h3{color:var(--red);}
+
+  /* APPROACH / QUOTE */
+  .quote-section{
+    text-align:center;
+    padding:140px 8%;
+  }
+  .quote-mark{font-size:5rem;color:var(--red);opacity:0.3;line-height:0.5;}
+  .quote-section blockquote{
+    font-size:clamp(1.6rem,3.5vw,2.6rem);
+    font-weight:300;line-height:1.5;max-width:900px;margin:20px auto;
+    font-style:italic;
+  }
+  .quote-section blockquote span{color:var(--red);font-weight:700;font-style:normal;}
+  .quote-section cite{
+    display:block;margin-top:26px;color:var(--gray);
+    font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;font-style:normal;
+  }
+
+  /* CONTACT */
+  .contact{
+    background:var(--black2);
+    border-top:1px solid rgba(200,16,46,0.15);
+  }
+  .contact-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:70px;margin-top:60px;
+  }
+  .contact-item{
+    display:flex;align-items:center;gap:20px;
+    padding:24px 0;border-bottom:1px solid rgba(245,242,238,0.1);
+  }
+  .contact-icon{
+    width:44px;height:44px;border:1px solid var(--red);
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    color:var(--red);font-size:1.1rem;flex-shrink:0;
+  }
+  .contact-item a, .contact-item p{
+    color:var(--white);text-decoration:none;font-size:1.05rem;
+  }
+  .contact-item .label{
+    display:block;color:var(--gray);font-size:0.75rem;
+    letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;
+  }
+  .contact-item a:hover{color:var(--red);}
+  .contact-form{display:flex;flex-direction:column;gap:18px;}
+  .contact-form input, .contact-form textarea{
+    background:transparent;border:none;border-bottom:1px solid rgba(245,242,238,0.25);
+    color:var(--white);padding:14px 4px;font-size:1rem;font-family:inherit;
+    outline:none;transition:border-color .3s;
+  }
+  .contact-form input:focus, .contact-form textarea:focus{border-color:var(--red);}
+  .contact-form input::placeholder, .contact-form textarea::placeholder{color:var(--gray);}
+  .contact-form button{
+    margin-top:10px;align-self:flex-start;
+    background:var(--red);color:#fff;border:none;
+    padding:16px 40px;letter-spacing:2px;text-transform:uppercase;
+    font-size:0.85rem;cursor:pointer;transition:all .3s;
+  }
+  .contact-form button:hover{background:var(--red2);box-shadow:0 0 30px rgba(200,16,46,0.4);}
+
+  footer{
+    padding:40px 8%;
+    display:flex;justify-content:space-between;align-items:center;
+    border-top:1px solid rgba(245,242,238,0.08);
+    flex-wrap:wrap;gap:16px;
+  }
+  footer p{color:var(--gray);font-size:0.8rem;letter-spacing:1px;}
+  .footer-social{display:flex;gap:24px;}
+  .footer-social a{color:var(--gray);text-decoration:none;font-size:0.8rem;letter-spacing:1px;transition:color .3s;}
+  .footer-social a:hover{color:var(--red);}
+
+  @media(max-width:900px){
+    .nav-links{display:none;}
+    .burger{display:flex;}
+    .about-grid, .contact-grid{grid-template-columns:1fr;gap:40px;}
+    .services-grid{grid-template-columns:1fr;}
+    .stat-block{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">TSUNAGU<span>.</span>MEDIA</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#niches">Industries</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="burger"><div></div><div></div><div></div></div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-kicker">Video Editing Agency</div>
+    <h1>WE CONNECT<br><span>CREATIVITY</span></h1>
+    <p>Tsunagu (繋ぐ) — "to connect." Storytelling-driven video editing for brands who want to be felt, not just seen.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn btn-primary">Start a Project</a>
+      <a href="#services" class="btn btn-outline">Our Work</a>
+    </div>
+  </div>
+  <div class="scroll-cue"></div>
+</section>
+
+<section class="about" id="about">
+  <div class="section-kicker">About Us</div>
+  <h2 class="section-title">Storytelling over<br>trends.</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p><strong>Tsunagu Media</strong> is a video editing agency built on one belief: the best edits don't chase trends, they tell stories. While others lean on flashy transitions and fleeting effects, we focus on narrative, pacing, and emotion — edits that connect your audience to your brand.</p>
+      <p>We've worked closely with <strong>gyms</strong>, helping them turn raw footage into content that builds community and drives memberships, and we're now expanding into new spaces like <strong>cafes</strong> and lifestyle brands who want the same storytelling-first approach.</p>
+    </div>
+    <div class="stat-block">
+      <div class="stat"><h3>繋</h3><p>To Connect</p></div>
+      <div class="stat"><h3>100%</h3><p>Story-First Editing</p></div>
+      <div class="stat"><h3>2+</h3><p>Core Industries</p></div>
+      <div class="stat"><h3>1:1</h3><p>Client Focused</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="section-kicker">What We Do</div>
+  <h2 class="section-title">Our Services</h2>
+  <p class="section-sub">Every edit is built around your brand's story first — the trend comes second, if at all.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-num">01</span>
+      <h3>Social Media Edits</h3>
+      <p>Reels, shorts, and posts engineered for retention and storytelling, not just noise.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-num">02</span>
+      <h3>Brand Story Videos</h3>
+      <p>Longer-form pieces that capture the heart of your brand — perfect for websites and launches.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-num">03</span>
+      <h3>Promotional Content</h3>
+      <p>Campaign-ready edits that convert viewers into customers without losing authenticity.</p>
+    </div>
+  </div>
+</section>
+
+<section class="niches" id="niches">
+  <div class="section-kicker">Who We Work With</div>
+  <h2 class="section-title">Industries We Serve</h2>
+  <div class="niche-list">
+    <div class="niche-row"><h3>Gyms & Fitness Studios</h3><span>Community-driven content</span></div>
+    <div class="niche-row"><h3>Cafes & Restaurants</h3><span>Atmosphere-first storytelling</span></div>
+    <div class="niche-row"><h3>Lifestyle Brands</h3><span>Narrative brand videos</span></div>
+    <div class="niche-row"><h3>Your Brand</h3><span>Let's talk</span></div>
+  </div>
+</section>
+
+<section class="quote-section">
+  <div class="quote-mark">"</div>
+  <blockquote>We don't edit for algorithms. We edit for <span>connection.</span></blockquote>
+  <cite>— Tsunagu Media</cite>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-kicker">Get In Touch</div>
+  <h2 class="section-title">Let's Connect</h2>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">@</div>
+        <div><span class="label">Email</span><a href="mailto:tsunagumedia.co@gmail.com">tsunagumedia.co@gmail.com</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">☎</div>
+        <div><span class="label">Phone / WhatsApp</span><a href="https://wa.me/919594610309">+91 95946 10309</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">IG</div>
+        <div><span class="label">Instagram</span><a href="https://instagram.com/tsunagu_.media" target="_blank">@tsunagu_.media</a></div>
+      </div>
+    </div>
+    <form class="contact-form" onsubmit="event.preventDefault(); window.location.href='mailto:tsunagumedia.co@gmail.com?subject=Project Inquiry from '+encodeURIComponent(document.getElementById('cname').value)+'&body='+encodeURIComponent(document.getElementById('cmsg').value);">
+      <input id="cname" type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea id="cmsg" rows="4" placeholder="Tell us about your project" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Tsunagu Media. All rights reserved.</p>
+  <div class="footer-social">
+    <a href="https://instagram.com/tsunagu_.media" target="_blank">Instagram</a>
+    <a href="mailto:tsunagumedia.co@gmail.com">Email</a>
+    <a href="https://wa.me/919594610309">WhatsApp</a>
+  </div>
+</footer>
+
+</body>
+</html>
