@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About | Tsunagu Media</title>
+<meta name="description" content="Tsunagu Media — storytelling-first video editing agency. Our story, our belief, and who we work with.">
+<style>
+  :root{--black:#0a0a0a;--black2:#141414;--red:#c8102e;--red2:#8f0c20;--white:#f5f2ee;--gray:#9a9a9a;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--black);color:var(--white);font-family:'Helvetica Neue',Arial,sans-serif;overflow-x:hidden;}
+  ::selection{background:var(--red);color:#fff;}
+
+  nav{
+    position:fixed;top:0;left:0;width:100%;display:flex;justify-content:space-between;align-items:center;
+    padding:22px 6%;z-index:1000;background:rgba(10,10,10,0.85);backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(200,16,46,0.2);
+  }
+  .logo{font-size:1.4rem;letter-spacing:3px;font-weight:700;color:var(--white);text-decoration:none;}
+  .logo span{color:var(--red);}
+  .nav-links{display:flex;gap:32px;list-style:none;align-items:center;}
+  .nav-links a{color:var(--white);text-decoration:none;font-size:0.85rem;letter-spacing:1.5px;text-transform:uppercase;position:relative;padding-bottom:4px;transition:color .3s;}
+  .nav-links a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--red);transition:width .3s ease;}
+  .nav-links a:hover{color:var(--red);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-links a.active{color:var(--red);}
+  .nav-links a.active::after{width:100%;}
+  .nav-cta{background:var(--red);color:#fff !important;padding:10px 22px;border-radius:2px;}
+  .nav-cta::after{display:none;}
+  .nav-cta:hover{background:var(--red2);color:#fff !important;transform:translateY(-2px);box-shadow:0 6px 20px rgba(200,16,46,0.4);}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .burger div{width:26px;height:2px;background:var(--white);}
+  .mobile-menu{display:none;position:fixed;top:70px;left:0;width:100%;background:var(--black2);border-bottom:1px solid rgba(200,16,46,0.2);z-index:999;padding:10px 6% 20px;flex-direction:column;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{color:var(--white);text-decoration:none;padding:14px 0;font-size:0.95rem;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid rgba(245,242,238,0.08);}
+  .mobile-menu a.active{color:var(--red);}
+
+  /* PAGE HEADER - anime style diagonal energy */
+  .page-header{
+    min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+    position:relative;padding:160px 20px 100px;overflow:hidden;
+    background:var(--black);
+  }
+  .page-header::before{
+    content:'';position:absolute;top:-20%;left:-10%;width:70%;height:160%;
+    background:linear-gradient(115deg, transparent 48%, rgba(200,16,46,0.14) 49%, rgba(200,16,46,0.14) 51%, transparent 52%);
+    animation:sweep 6s ease-in-out infinite;
+  }
+  .page-header::after{
+    content:'繋';position:absolute;font-size:min(50vw,600px);color:rgba(200,16,46,0.04);font-weight:900;z-index:0;user-select:none;right:-5%;top:-10%;
+  }
+  @keyframes sweep{
+    0%,100%{transform:translateX(0) skewX(0deg);opacity:0.6;}
+    50%{transform:translateX(8%) skewX(-3deg);opacity:1;}
+  }
+  .page-kicker{color:var(--red);letter-spacing:6px;font-size:0.8rem;text-transform:uppercase;margin-bottom:18px;position:relative;z-index:2;opacity:0;animation:fadeUp .8s ease forwards .1s;}
+  .page-header h1{font-size:clamp(2.4rem,6vw,4.4rem);font-weight:800;letter-spacing:1px;position:relative;z-index:2;opacity:0;animation:fadeUp .8s ease forwards .25s;}
+  .page-header h1 span{color:var(--red);}
+  .page-header p{margin-top:22px;color:var(--gray);max-width:560px;font-size:1.05rem;line-height:1.7;position:relative;z-index:2;opacity:0;animation:fadeUp .8s ease forwards .4s;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+  section{padding:110px 8%;position:relative;}
+  .section-kicker{color:var(--red);letter-spacing:4px;font-size:0.78rem;text-transform:uppercase;margin-bottom:14px;}
+  .section-title{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;letter-spacing:1px;margin-bottom:24px;}
+
+  /* reveal on scroll */
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  .about{background:var(--black2);border-top:1px solid rgba(200,16,46,0.15);border-bottom:1px solid rgba(200,16,46,0.15);}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;margin-top:60px;align-items:start;}
+  .about-text p{color:var(--gray);line-height:1.9;margin-bottom:20px;font-size:1.02rem;}
+  .about-text strong{color:var(--white);}
+  .stat-block{display:grid;grid-template-columns:1fr 1fr;gap:30px;}
+  .stat{
+    padding:28px 24px;border:1px solid rgba(245,242,238,0.1);border-left:2px solid var(--red);
+    background:rgba(255,255,255,0.02);transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+  }
+  .stat:hover{transform:translateY(-6px) scale(1.02);border-color:var(--red);box-shadow:0 14px 34px rgba(200,16,46,0.18);}
+  .stat h3{font-size:2.2rem;color:var(--red);margin-bottom:6px;}
+  .stat p{color:var(--gray);font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;}
+
+  /* VALUES - anime impact cards */
+  .values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px;background:rgba(200,16,46,0.15);}
+  .value-card{
+    background:var(--black);padding:44px 32px;position:relative;overflow:hidden;
+    transition:background .3s ease, transform .35s cubic-bezier(.2,.9,.3,1.3);
+  }
+  .value-card::before{
+    content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:var(--red);
+    transition:left .4s ease;
+  }
+  .value-card:hover::before{left:0;}
+  .value-card:hover{background:var(--black2);transform:translateY(-8px) scale(1.02);}
+  .value-num{color:var(--red);font-size:0.85rem;letter-spacing:2px;margin-bottom:20px;display:block;}
+  .value-card h3{font-size:1.3rem;margin-bottom:14px;font-weight:700;}
+  .value-card p{color:var(--gray);font-size:0.92rem;line-height:1.7;}
+
+  /* NICHES */
+  .niches{background:var(--black);border-top:1px solid rgba(200,16,46,0.15);border-bottom:1px solid rgba(200,16,46,0.15);}
+  .niche-list{margin-top:50px;display:flex;flex-direction:column;}
+  .niche-row{display:flex;justify-content:space-between;align-items:center;padding:30px 0;border-bottom:1px solid rgba(245,242,238,0.1);transition:padding-left .3s cubic-bezier(.2,.9,.3,1.3), border-color .3s ease;cursor:default;position:relative;}
+  .niche-row::before{content:'';position:absolute;left:-16px;top:0;bottom:0;width:3px;background:var(--red);transform:scaleY(0);transition:transform .3s ease;transform-origin:center;}
+  .niche-row:hover::before{transform:scaleY(1);}
+  .niche-row:hover{padding-left:24px;border-color:var(--red);}
+  .niche-row h3{font-size:1.6rem;font-weight:700;transition:color .3s;}
+  .niche-row span{color:var(--gray);font-size:0.9rem;letter-spacing:1px;}
+  .niche-row:hover h3{color:var(--red);}
+
+  .final-cta{background:linear-gradient(135deg, var(--red2), var(--red));text-align:center;padding:110px 8%;position:relative;overflow:hidden;}
+  .final-cta::before{
+    content:'';position:absolute;top:-50%;left:-20%;width:60%;height:200%;
+    background:linear-gradient(115deg, transparent 46%, rgba(255,255,255,0.08) 49%, rgba(255,255,255,0.08) 51%, transparent 54%);
+    animation:sweep 5s ease-in-out infinite;
+  }
+  .final-cta h2{font-size:clamp(2rem,5vw,3.4rem);font-weight:800;margin-bottom:20px;color:#fff;position:relative;z-index:2;}
+  .final-cta p{color:rgba(255,255,255,0.85);max-width:560px;margin:0 auto 40px;font-size:1.1rem;position:relative;z-index:2;}
+
+  .btn{padding:17px 38px;border-radius:2px;text-decoration:none;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;transition:all .3s cubic-bezier(.2,.9,.3,1.3);display:inline-block;border:1px solid transparent;font-weight:600;position:relative;z-index:2;}
+  .btn-primary{background:#fff;color:var(--red);}
+  .btn-primary:hover{background:var(--black);color:#fff;transform:translateY(-3px) scale(1.04);box-shadow:0 10px 30px rgba(0,0,0,0.4);}
+
+  footer{padding:40px 8%;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(245,242,238,0.08);flex-wrap:wrap;gap:16px;}
+  footer p{color:var(--gray);font-size:0.8rem;letter-spacing:1px;}
+  .footer-social{display:flex;gap:24px;}
+  .footer-social a{color:var(--gray);text-decoration:none;font-size:0.8rem;letter-spacing:1px;transition:color .3s;}
+  .footer-social a:hover{color:var(--red);}
+
+  @media(max-width:900px){
+    .nav-links{display:none;}
+    .burger{display:flex;}
+    .about-grid{grid-template-columns:1fr;gap:40px;}
+    .values-grid{grid-template-columns:1fr;}
+    .stat-block{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">TSUNAGU<span>.</span>MEDIA</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html" class="nav-cta">Book a Call</a></li>
+  </ul>
+  <button class="burger" onclick="document.getElementById('mmenu').classList.toggle('open')"><div></div><div></div><div></div></button>
+</nav>
+<div class="mobile-menu" id="mmenu">
+  <a href="index.html">Home</a>
+  <a href="about.html" class="active">About</a>
+  <a href="services.html">Services</a>
+  <a href="portfolio.html">Portfolio</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<section class="page-header">
+  <div class="page-kicker">About Us</div>
+  <h1>We grow brands<br>through <span>storytelling.</span></h1>
+  <p>繋ぐ (Tsunagu) means "to connect." That's not just our name — it's how we approach every edit.</p>
+</section>
+
+<section class="about">
+  <div class="section-kicker reveal">Our Story</div>
+  <h2 class="section-title reveal">Storytelling over trends.</h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p><strong>Tsunagu Media</strong> exists on one belief: the best edits don't chase trends, they tell stories. While other agencies lean on flashy transitions and fleeting effects, we focus on narrative, pacing, and emotion — edits that connect your audience to your brand, and turn viewers into customers.</p>
+      <p>We've worked closely with <strong>gyms</strong>, helping them turn raw footage into content that builds community and drives memberships, and we're now expanding into new spaces like <strong>cafes</strong> and lifestyle brands who want the same storytelling-first approach.</p>
+    </div>
+    <div class="stat-block reveal">
+      <div class="stat"><h3>繋</h3><p>To Connect</p></div>
+      <div class="stat"><h3>100%</h3><p>Story-First Editing</p></div>
+      <div class="stat"><h3>2+</h3><p>Core Industries</p></div>
+      <div class="stat"><h3>1:1</h3><p>Client Focused</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-kicker reveal">What We Believe</div>
+  <h2 class="section-title reveal">Our values</h2>
+  <div class="values-grid">
+    <div class="value-card reveal">
+      <span class="value-num">01</span>
+      <h3>Narrative First</h3>
+      <p>Every cut serves the story, not the algorithm. Trends fade — stories stick.</p>
+    </div>
+    <div class="value-card reveal">
+      <span class="value-num">02</span>
+      <h3>Real Connection</h3>
+      <p>繋ぐ means to connect — we build content that bonds your audience to your brand.</p>
+    </div>
+    <div class="value-card reveal">
+      <span class="value-num">03</span>
+      <h3>Direct Partnership</h3>
+      <p>No middlemen, no account managers — you work directly with the people editing your content.</p>
+    </div>
+  </div>
+</section>
+
+<section class="niches">
+  <div class="section-kicker reveal">Who We Work With</div>
+  <h2 class="section-title reveal">Industries we serve</h2>
+  <div class="niche-list">
+    <div class="niche-row reveal"><h3>Gyms & Fitness Studios</h3><span>Community-driven content</span></div>
+    <div class="niche-row reveal"><h3>Cafes & Restaurants</h3><span>Atmosphere-first storytelling</span></div>
+    <div class="niche-row reveal"><h3>Lifestyle Brands</h3><span>Narrative brand videos</span></div>
+    <div class="niche-row reveal"><h3>Your Brand</h3><span>Let's talk</span></div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <h2>Let's tell your story.</h2>
+  <p>Ready to see what storytelling-first editing can do for your brand?</p>
+  <a href="contact.html" class="btn btn-primary">Book Your Free Call</a>
+</section>
+
+<footer>
+  <p>&copy; 2026 Tsunagu Media. All rights reserved.</p>
+  <div class="footer-social">
+    <a href="https://instagram.com/tsunagu_.media" target="_blank">Instagram</a>
+    <a href="mailto:tsunagumedia.co@gmail.com">Email</a>
+    <a href="https://wa.me/919594610309">WhatsApp</a>
+  </div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:0.15});
+  els.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>

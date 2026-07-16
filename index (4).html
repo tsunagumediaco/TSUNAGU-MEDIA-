@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tsunagu Media | We Connect Creativity</title>
+<meta name="description" content="Tsunagu Media — we turn raw footage into scroll-stopping stories. Storytelling-driven video editing for gyms, cafes, and growing brands.">
+<style>
+  :root{
+    --black:#0a0a0a;--black2:#141414;--red:#c8102e;--red2:#8f0c20;--white:#f5f2ee;--gray:#9a9a9a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--black);color:var(--white);font-family:'Helvetica Neue',Arial,sans-serif;overflow-x:hidden;}
+  ::selection{background:var(--red);color:#fff;}
+
+  nav{
+    position:fixed;top:0;left:0;width:100%;display:flex;justify-content:space-between;align-items:center;
+    padding:22px 6%;z-index:1000;background:rgba(10,10,10,0.85);backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(200,16,46,0.2);
+  }
+  .logo{font-size:1.4rem;letter-spacing:3px;font-weight:700;color:var(--white);text-decoration:none;}
+  .logo span{color:var(--red);}
+  .nav-links{display:flex;gap:32px;list-style:none;align-items:center;}
+  .nav-links a{color:var(--white);text-decoration:none;font-size:0.85rem;letter-spacing:1.5px;text-transform:uppercase;position:relative;padding-bottom:4px;transition:color .3s;}
+  .nav-links a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--red);transition:width .3s ease;}
+  .nav-links a:hover{color:var(--red);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-links a.active{color:var(--red);}
+  .nav-cta{background:var(--red);color:#fff !important;padding:10px 22px;border-radius:2px;}
+  .nav-cta::after{display:none;}
+  .nav-cta:hover{background:var(--red2);color:#fff !important;}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .burger div{width:26px;height:2px;background:var(--white);}
+  .mobile-menu{
+    display:none;position:fixed;top:70px;left:0;width:100%;background:var(--black2);
+    border-bottom:1px solid rgba(200,16,46,0.2);z-index:999;padding:10px 6% 20px;flex-direction:column;
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{color:var(--white);text-decoration:none;padding:14px 0;font-size:0.95rem;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid rgba(245,242,238,0.08);}
+  .mobile-menu a.active{color:var(--red);}
+
+  .hero{
+    min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+    position:relative;
+    background:radial-gradient(circle at 30% 20%, rgba(200,16,46,0.18), transparent 40%),
+      radial-gradient(circle at 70% 80%, rgba(200,16,46,0.14), transparent 45%),var(--black);
+    padding:140px 20px 80px;
+  }
+  .hero::before{
+    content:'繋';position:absolute;font-size:min(60vw,700px);color:rgba(200,16,46,0.05);font-weight:900;z-index:0;user-select:none;
+  }
+  .hero-content{position:relative;z-index:2;max-width:900px;}
+  .hero-kicker{color:var(--red);letter-spacing:6px;font-size:0.8rem;text-transform:uppercase;margin-bottom:18px;opacity:0;animation:fadeUp 1s ease forwards .2s;}
+  .hero h1{font-size:clamp(2.6rem,7vw,5.2rem);font-weight:800;letter-spacing:1px;line-height:1.08;opacity:0;animation:fadeUp 1s ease forwards .4s;}
+  .hero h1 span{color:var(--red);}
+  .hero-tagline{
+    margin-top:20px;font-size:1.3rem;letter-spacing:2px;color:var(--white);opacity:0;animation:fadeUp 1s ease forwards .5s;
+  }
+  .hero-tagline span{color:var(--red);}
+  .hero p{margin-top:20px;font-size:1.1rem;color:var(--gray);max-width:600px;margin-left:auto;margin-right:auto;line-height:1.7;opacity:0;animation:fadeUp 1s ease forwards .6s;}
+  .hero-btns{margin-top:42px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 1s ease forwards .8s;}
+  .hero-trustbar{margin-top:70px;display:flex;gap:50px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp 1s ease forwards 1s;position:relative;z-index:2;}
+  .trust-item{text-align:center;}
+  .trust-item h3{font-size:1.6rem;color:var(--red);font-weight:800;}
+  .trust-item p{font-size:0.72rem;color:var(--gray);letter-spacing:1.5px;text-transform:uppercase;margin-top:4px;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+  .btn{padding:17px 38px;border-radius:2px;text-decoration:none;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;transition:all .35s ease;display:inline-block;border:1px solid transparent;font-weight:600;}
+  .btn-primary{background:var(--red);color:#fff;}
+  .btn-primary:hover{background:var(--red2);box-shadow:0 0 34px rgba(200,16,46,0.55);transform:translateY(-2px);}
+  .btn-outline{border:1px solid rgba(245,242,238,0.3);color:var(--white);}
+  .btn-outline:hover{border-color:var(--red);color:var(--red);}
+
+  .scroll-cue{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);width:22px;height:36px;border:1px solid rgba(245,242,238,0.4);border-radius:12px;z-index:2;}
+  .scroll-cue::before{content:'';position:absolute;top:6px;left:50%;width:4px;height:4px;background:var(--red);border-radius:50%;transform:translateX(-50%);animation:scrollDown 1.8s ease infinite;}
+  @keyframes scrollDown{0%{top:6px;opacity:1;}80%{top:22px;opacity:0;}100%{top:22px;opacity:0;}}
+
+  /* QUICK PREVIEW STRIP */
+  section{padding:120px 8%;position:relative;}
+  .section-kicker{color:var(--red);letter-spacing:4px;font-size:0.78rem;text-transform:uppercase;margin-bottom:14px;}
+  .section-title{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;letter-spacing:1px;margin-bottom:24px;}
+  .section-sub{color:var(--gray);max-width:600px;font-size:1.05rem;line-height:1.7;}
+
+  .preview{background:var(--black2);border-top:1px solid rgba(200,16,46,0.15);border-bottom:1px solid rgba(200,16,46,0.15);}
+  .preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px;}
+  .preview-card{
+    background:var(--black);border:1px solid rgba(245,242,238,0.08);padding:40px 30px;
+    text-decoration:none;color:var(--white);transition:transform .3s ease, border-color .3s ease;display:block;
+  }
+  .preview-card:hover{transform:translateY(-6px);border-color:var(--red);}
+  .preview-card h3{font-size:1.3rem;margin-bottom:12px;font-weight:700;}
+  .preview-card p{color:var(--gray);font-size:0.9rem;line-height:1.6;margin-bottom:18px;}
+  .preview-card .arrow{color:var(--red);font-size:0.85rem;letter-spacing:1px;text-transform:uppercase;}
+
+  .final-cta{background:linear-gradient(135deg, var(--red2), var(--red));text-align:center;padding:110px 8%;}
+  .final-cta h2{font-size:clamp(2rem,5vw,3.4rem);font-weight:800;margin-bottom:20px;color:#fff;}
+  .final-cta p{color:rgba(255,255,255,0.85);max-width:560px;margin:0 auto 40px;font-size:1.1rem;}
+  .final-cta .btn-primary{background:#fff;color:var(--red);}
+  .final-cta .btn-primary:hover{background:var(--black);color:#fff;box-shadow:0 0 30px rgba(0,0,0,0.4);}
+
+  footer{padding:40px 8%;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(245,242,238,0.08);flex-wrap:wrap;gap:16px;}
+  footer p{color:var(--gray);font-size:0.8rem;letter-spacing:1px;}
+  .footer-social{display:flex;gap:24px;}
+  .footer-social a{color:var(--gray);text-decoration:none;font-size:0.8rem;letter-spacing:1px;transition:color .3s;}
+  .footer-social a:hover{color:var(--red);}
+
+  @media(max-width:900px){
+    .nav-links{display:none;}
+    .burger{display:flex;}
+    .preview-grid{grid-template-columns:1fr;}
+    .hero-trustbar{gap:32px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">TSUNAGU<span>.</span>MEDIA</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html" class="nav-cta">Book a Call</a></li>
+  </ul>
+  <button class="burger" onclick="document.getElementById('mmenu').classList.toggle('open')"><div></div><div></div><div></div></button>
+</nav>
+<div class="mobile-menu" id="mmenu">
+  <a href="index.html" class="active">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="portfolio.html">Portfolio</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-kicker">Video Editing Agency</div>
+    <h1>WE TURN RAW FOOTAGE<br>INTO <span>SCROLL-STOPPING</span><br>STORIES</h1>
+    <p class="hero-tagline">繋ぐ — "To Connect" · <span>We Connect Creativity</span></p>
+    <p>Most agencies chase trends. We build narratives that make your audience stop, feel something, and remember your brand — then come back for more.</p>
+    <div class="hero-btns">
+      <a href="contact.html" class="btn btn-primary">Book a Free Call</a>
+      <a href="portfolio.html" class="btn btn-outline">See Our Work</a>
+    </div>
+    <div class="hero-trustbar">
+      <div class="trust-item"><h3>100%</h3><p>Storytelling-First</p></div>
+      <div class="trust-item"><h3>Gyms</h3><p>& Fitness Brands</p></div>
+      <div class="trust-item"><h3>Cafes</h3><p>& Lifestyle Brands</p></div>
+      <div class="trust-item"><h3>1:1</h3><p>Dedicated Editing</p></div>
+    </div>
+  </div>
+  <div class="scroll-cue"></div>
+</section>
+
+<section class="preview">
+  <div class="section-kicker">Explore</div>
+  <h2 class="section-title">Where to go next</h2>
+  <p class="section-sub">A quick look at what we do, who we work with, and how to get started.</p>
+  <div class="preview-grid">
+    <a href="about.html" class="preview-card">
+      <h3>About Us</h3>
+      <p>Our story, our belief in storytelling over trends, and who we work best with.</p>
+      <span class="arrow">Learn More →</span>
+    </a>
+    <a href="services.html" class="preview-card">
+      <h3>Services</h3>
+      <p>Social edits, brand story videos, and promotional content — all built around narrative.</p>
+      <span class="arrow">See Services →</span>
+    </a>
+    <a href="portfolio.html" class="preview-card">
+      <h3>Portfolio</h3>
+      <p>A look at the kind of storytelling-first edits we create for our clients.</p>
+      <span class="arrow">View Work →</span>
+    </a>
+  </div>
+</section>
+
+<section class="final-cta">
+  <h2>Ready to grow your brand?</h2>
+  <p>Let's turn your raw footage into content that actually connects. Book a free call and get a custom content plan.</p>
+  <a href="contact.html" class="btn btn-primary">Book Your Free Call</a>
+</section>
+
+<footer>
+  <p>&copy; 2026 Tsunagu Media. All rights reserved.</p>
+  <div class="footer-social">
+    <a href="https://instagram.com/tsunagu_.media" target="_blank">Instagram</a>
+    <a href="mailto:tsunagumedia.co@gmail.com">Email</a>
+    <a href="https://wa.me/919594610309">WhatsApp</a>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services | Tsunagu Media</title>
+<meta name="description" content="Tsunagu Media services — social media edits, brand story videos, and promotional content built around storytelling.">
+<style>
+  :root{--black:#0a0a0a;--black2:#141414;--red:#c8102e;--red2:#8f0c20;--white:#f5f2ee;--gray:#9a9a9a;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--black);color:var(--white);font-family:'Helvetica Neue',Arial,sans-serif;overflow-x:hidden;}
+  ::selection{background:var(--red);color:#fff;}
+
+  nav{position:fixed;top:0;left:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:22px 6%;z-index:1000;background:rgba(10,10,10,0.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(200,16,46,0.2);}
+  .logo{font-size:1.4rem;letter-spacing:3px;font-weight:700;color:var(--white);text-decoration:none;}
+  .logo span{color:var(--red);}
+  .nav-links{display:flex;gap:32px;list-style:none;align-items:center;}
+  .nav-links a{color:var(--white);text-decoration:none;font-size:0.85rem;letter-spacing:1.5px;text-transform:uppercase;position:relative;padding-bottom:4px;transition:color .3s;}
+  .nav-links a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--red);transition:width .3s ease;}
+  .nav-links a:hover{color:var(--red);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-links a.active{color:var(--red);}
+  .nav-links a.active::after{width:100%;}
+  .nav-cta{background:var(--red);color:#fff !important;padding:10px 22px;border-radius:2px;}
+  .nav-cta::after{display:none;}
+  .nav-cta:hover{background:var(--red2);color:#fff !important;transform:translateY(-2px);box-shadow:0 6px 20px rgba(200,16,46,0.4);}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .burger div{width:26px;height:2px;background:var(--white);}
+  .mobile-menu{display:none;position:fixed;top:70px;left:0;width:100%;background:var(--black2);border-bottom:1px solid rgba(200,16,46,0.2);z-index:999;padding:10px 6% 20px;flex-direction:column;}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{color:var(--white);text-decoration:none;padding:14px 0;font-size:0.95rem;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid rgba(245,242,238,0.08);}
+  .mobile-menu a.active{color:var(--red);}
+
+  .page-header{min-height:56vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;padding:160px 20px 90px;overflow:hidden;background:var(--black);}
+  .page-header::before{content:'';position:absolute;top:-20%;left:-10%;width:70%;height:160%;background:linear-gradient(115deg, transparent 48%, rgba(200,16,46,0.14) 49%, rgba(200,16,46,0.14) 51%, transparent 52%);animation:sweep 6s ease-in-out infinite;}
+  .page-header::after{content:'繋';position:absolute;font-size:min(50vw,600px);color:rgba(200,16,46,0.04);font-weight:900;z-index:0;user-select:none;right:-5%;top:-10%;}
+  @keyframes sweep{0%,100%{transform:translateX(0) skewX(0deg);opacity:0.6;}50%{transform:translateX(8%) skewX(-3deg);opacity:1;}}
+  .page-kicker{color:var(--red);letter-spacing:6px;font-size:0.8rem;text-transform:uppercase;margin-bottom:18px;position:relative;z-index:2;opacity:0;animation:fadeUp .8s ease forwards .1s;}
+  .page-header h1{font-size:clamp(2.4rem,6vw,4.4rem);font-weight:800;letter-spacing:1px;position:relative;z-index:2;opacity:0;animation:fadeUp .8s ease forwards .25s;}
+  .page-header h1 span{color:var(--red);}
+  .page-header p{margin-top:22px;color:var(--gray);max-width:560px;font-size:1.05rem;line-height:1.7;position:relative;z-index:2;opacity:0;animation:fadeUp .8s ease forwards .4s;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+  section{padding:110px 8%;position:relative;}
+  .section-kicker{color:var(--red);letter-spacing:4px;font-size:0.78rem;text-transform:uppercase;margin-bottom:14px;}
+  .section-title{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;letter-spacing:1px;margin-bottom:24px;}
+  .section-sub{color:var(--gray);max-width:600px;font-size:1.05rem;line-height:1.7;}
+
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* SERVICES - full detail cards with tilt + scanline */
+  .services-list{display:flex;flex-direction:column;gap:2px;margin-top:60px;background:rgba(200,16,46,0.15);}
+  .service-row{
+    background:var(--black);padding:48px 40px;display:grid;grid-template-columns:80px 1fr 200px;gap:32px;align-items:center;
+    position:relative;overflow:hidden;transition:background .3s ease, transform .35s cubic-bezier(.2,.9,.3,1.3);
+    transform-style:preserve-3d;
+  }
+  .service-row::before{
+    content:'';position:absolute;left:0;top:0;width:4px;height:0%;background:var(--red);transition:height .4s ease;
+  }
+  .service-row:hover::before{height:100%;}
+  .service-row::after{
+    content:'';position:absolute;top:-100%;left:0;width:100%;height:60%;
+    background:linear-gradient(180deg, rgba(200,16,46,0.15), transparent);
+    transition:top .5s ease;pointer-events:none;
+  }
+  .service-row:hover::after{top:0;}
+  .service-row:hover{background:var(--black2);transform:translateX(10px);}
+  .service-index{font-size:2.4rem;font-weight:800;color:var(--red);opacity:0.5;transition:opacity .3s ease, transform .3s ease;}
+  .service-row:hover .service-index{opacity:1;transform:scale(1.1);}
+  .service-body h3{font-size:1.5rem;font-weight:700;margin-bottom:10px;}
+  .service-body p{color:var(--gray);font-size:0.95rem;line-height:1.7;}
+  .service-tag{
+    justify-self:end;color:var(--red);font-size:0.78rem;letter-spacing:2px;text-transform:uppercase;
+    border:1px solid rgba(200,16,46,0.4);padding:8px 16px;text-align:center;transition:all .3s ease;
+  }
+  .service-row:hover .service-tag{background:var(--red);color:#fff;transform:scale(1.05);}
+
+  @media(max-width:800px){
+    .service-row{grid-template-columns:1fr;text-align:left;gap:14px;}
+    .service-tag{justify-self:start;}
+  }
+
+  /* PROCESS - anime step timeline */
+  .process{background:var(--black2);border-top:1px solid rgba(200,16,46,0.15);border-bottom:1px solid rgba(200,16,46,0.15);}
+  .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:60px;}
+  .process-step{
+    text-align:center;padding:30px 20px;position:relative;
+    transition:transform .35s cubic-bezier(.2,.9,.3,1.3);
+  }
+  .process-step:hover{transform:translateY(-10px);}
+  .process-circle{
+    width:64px;height:64px;border-radius:50%;border:2px solid var(--red);margin:0 auto 20px;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.3rem;color:var(--red);
+    position:relative;transition:box-shadow .3s ease, background .3s ease, color .3s ease;
+  }
+  .process-step:hover .process-circle{background:var(--red);color:#fff;box-shadow:0 0 30px rgba(200,16,46,0.6);}
+  .process-step h4{font-size:1.05rem;margin-bottom:8px;font-weight:700;}
+  .process-step p{color:var(--gray);font-size:0.85rem;line-height:1.6;}
+
+  @media(max-width:800px){.process-grid{grid-template-columns:1fr 1fr;}}
+
+  .final-cta{background:linear-gradient(135deg, var(--red2), var(--red));text-align:center;padding:110px 8%;position:relative;overflow:hidden;}
+  .final-cta::before{content:'';position:absolute;top:-50%;left:-20%;width:60%;height:200%;background:linear-gradient(115deg, transparent 46%, rgba(255,255,255,0.08) 49%, rgba(255,255,255,0.08) 51%, transparent 54%);animation:sweep 5s ease-in-out infinite;}
+  .final-cta h2{font-size:clamp(2rem,5vw,3.4rem);font-weight:800;margin-bottom:20px;color:#fff;position:relative;z-index:2;}
+  .final-cta p{color:rgba(255,255,255,0.85);max-width:560px;margin:0 auto 40px;font-size:1.1rem;position:relative;z-index:2;}
+
+  .btn{padding:17px 38px;border-radius:2px;text-decoration:none;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;transition:all .3s cubic-bezier(.2,.9,.3,1.3);display:inline-block;border:1px solid transparent;font-weight:600;position:relative;z-index:2;}
+  .btn-primary{background:#fff;color:var(--red);}
+  .btn-primary:hover{background:var(--black);color:#fff;transform:translateY(-3px) scale(1.04);box-shadow:0 10px 30px rgba(0,0,0,0.4);}
+
+  footer{padding:40px 8%;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(245,242,238,0.08);flex-wrap:wrap;gap:16px;}
+  footer p{color:var(--gray);font-size:0.8rem;letter-spacing:1px;}
+  .footer-social{display:flex;gap:24px;}
+  .footer-social a{color:var(--gray);text-decoration:none;font-size:0.8rem;letter-spacing:1px;transition:color .3s;}
+  .footer-social a:hover{color:var(--red);}
+
+  @media(max-width:900px){
+    .nav-links{display:none;}
+    .burger{display:flex;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">TSUNAGU<span>.</span>MEDIA</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html" class="nav-cta">Book a Call</a></li>
+  </ul>
+  <button class="burger" onclick="document.getElementById('mmenu').classList.toggle('open')"><div></div><div></div><div></div></button>
+</nav>
+<div class="mobile-menu" id="mmenu">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="services.html" class="active">Services</a>
+  <a href="portfolio.html">Portfolio</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<section class="page-header">
+  <div class="page-kicker">What We Do</div>
+  <h1>Edits built to<br><span>connect,</span> not scroll past.</h1>
+  <p>Every service we offer is built around one goal: making your audience feel something.</p>
+</section>
+
+<section>
+  <div class="section-kicker reveal">Our Services</div>
+  <h2 class="section-title reveal">What's included</h2>
+  <div class="services-list">
+    <div class="service-row reveal">
+      <div class="service-index">01</div>
+      <div class="service-body">
+        <h3>Social Media Edits</h3>
+        <p>Reels, shorts, and posts engineered for retention and storytelling, not just noise. Fast-paced when it needs to be, patient when the story calls for it.</p>
+      </div>
+      <div class="service-tag">Most Popular</div>
+    </div>
+    <div class="service-row reveal">
+      <div class="service-index">02</div>
+      <div class="service-body">
+        <h3>Brand Story Videos</h3>
+        <p>Longer-form pieces that capture the heart of your brand — perfect for websites, launches, and campaigns that need real emotional weight.</p>
+      </div>
+      <div class="service-tag">In-Depth</div>
+    </div>
+    <div class="service-row reveal">
+      <div class="service-index">03</div>
+      <div class="service-body">
+        <h3>Promotional Content</h3>
+        <p>Campaign-ready edits that convert viewers into customers without losing authenticity — built for launches, offers, and seasonal pushes.</p>
+      </div>
+      <div class="service-tag">Conversion-Focused</div>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="section-kicker reveal">How It Works</div>
+  <h2 class="section-title reveal">Our process</h2>
+  <div class="process-grid">
+    <div class="process-step reveal">
+      <div class="process-circle">1</div>
+      <h4>Discovery Call</h4>
+      <p>We learn your brand, your audience, and your goals.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="process-circle">2</div>
+      <h4>Footage & Brief</h4>
+      <p>You send raw footage, we build a storytelling plan.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="process-circle">3</div>
+      <h4>Edit & Review</h4>
+      <p>We cut the story, you review and give feedback.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="process-circle">4</div>
+      <h4>Deliver & Post</h4>
+      <p>Final edit delivered, ready to publish and connect.</p>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <h2>Let's build your next story.</h2>
+  <p>Tell us about your brand and we'll show you what storytelling-first editing looks like.</p>
+  <a href="contact.html" class="btn btn-primary">Book Your Free Call</a>
+</section>
+
+<footer>
+  <p>&copy; 2026 Tsunagu Media. All rights reserved.</p>
+  <div class="footer-social">
+    <a href="https://instagram.com/tsunagu_.media" target="_blank">Instagram</a>
+    <a href="mailto:tsunagumedia.co@gmail.com">Email</a>
+    <a href="https://wa.me/919594610309">WhatsApp</a>
+  </div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i%3*100); io.unobserve(e.target); } });
+  },{threshold:0.15});
+  els.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
